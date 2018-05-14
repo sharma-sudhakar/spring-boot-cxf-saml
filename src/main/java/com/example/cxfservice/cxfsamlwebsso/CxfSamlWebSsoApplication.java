@@ -34,12 +34,12 @@ public class CxfSamlWebSsoApplication {
         endpoint.setBus(bus);
         endpoint.setAddress("/app");
         // Register 2 JAX-RS root resources supporting "/sayHello/{id}" and "/sayHello2/{id}" relative paths
-        endpoint.setServiceBeans(Arrays.<Object>asList(new HelloServiceImpl(), consumerService()));
+        endpoint.setServiceBeans(Arrays.<Object>asList(new HelloServiceImpl()));
         endpoint.setProvider(redirectGetFilter());
         return endpoint.create();
     }
     
-    /*@Bean
+    @Bean
     public Server assertionServer() {
         JAXRSServerFactoryBean endpoint = new JAXRSServerFactoryBean();
 //        endpoint.setBus(bus);
@@ -48,7 +48,7 @@ public class CxfSamlWebSsoApplication {
         endpoint.setServiceBeans(Arrays.<Object>asList(consumerService()));
 //        endpoint.setProvider(redirectGetFilter());
         return endpoint.create();
-    }*/
+    }
     
     @Bean
     public SamlRedirectBindingFilter redirectGetFilter() {
@@ -56,6 +56,8 @@ public class CxfSamlWebSsoApplication {
     	filter.setIdpServiceAddress(idpServiceAddress);
     	filter.setAssertionConsumerServiceAddress(assertionConsumerServiceAddress);
     	filter.setStateProvider(stateProvider());
+    	filter.setAddWebAppContext(false);
+//    	filter.setWebAppDomain("localhost:8080");
 //    	filter.setSignRequest(true);
 //    	filter.setSignatureUsername("alias");
 //    	filter.setSignaturePropertiesFile("serviceKeystore.properties");
