@@ -42,11 +42,8 @@ public class CxfSamlWebSsoApplication {
     @Bean
     public Server assertionServer() {
         JAXRSServerFactoryBean endpoint = new JAXRSServerFactoryBean();
-//        endpoint.setBus(bus);
         endpoint.setAddress("/racs");
-        // Register 2 JAX-RS root resources supporting "/sayHello/{id}" and "/sayHello2/{id}" relative paths
         endpoint.setServiceBeans(Arrays.<Object>asList(consumerService()));
-//        endpoint.setProvider(redirectGetFilter());
         return endpoint.create();
     }
     
@@ -57,10 +54,6 @@ public class CxfSamlWebSsoApplication {
     	filter.setAssertionConsumerServiceAddress(assertionConsumerServiceAddress);
     	filter.setStateProvider(stateProvider());
     	filter.setAddWebAppContext(false);
-//    	filter.setWebAppDomain("localhost:8080");
-//    	filter.setSignRequest(true);
-//    	filter.setSignatureUsername("alias");
-//    	filter.setSignaturePropertiesFile("serviceKeystore.properties");
     	return filter;
     }
 
